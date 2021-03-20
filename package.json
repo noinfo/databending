@@ -19,7 +19,7 @@
     "moshing"
   ],
   "author": "Fabian Meyer <fm@noinfo.de>",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "chokidar": "^3.5.1"
   }
