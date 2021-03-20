@@ -1,0 +1,26 @@
+{
+  "name": "databending-toolkit",
+  "version": "0.0.1",
+  "description": "A set of tools to help my databending/datamoshing/glitching workflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "data",
+    "bending",
+    "glitch",
+    "glitching",
+    "glitch",
+    "art",
+    "generative",
+    "art",
+    "data",
+    "moshing"
+  ],
+  "author": "Fabian Meyer <fm@noinfo.de>",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.5.1"
+  }
+}
