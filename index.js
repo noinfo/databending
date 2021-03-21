@@ -1,17 +1,30 @@
 const chokidar = require('chokidar');
 const fs = require('fs');
+const path = require('path');
 const zeropad = (number) => ("0000" + number).slice(-4);
-// TODO get from param
-const watchedFilePath = "test.raw";
-// TODO get folder from param / call
-const folderPath = "./";
+const showHelp = () => {
+  // TODO write comprehensive help
+  console.log(`\nThis is the help`);
+};
+
+if(process.argv.length < 3){
+  showHelp();
+  return 1;
+}
+const watchedFilePath = process.argv[2];
+//get folder from param / call
+let folderPath = "./";
+if(watchedFilePath.indexOf("/") >= 0){
+  folderPath = path.dirname(watchedFilePath) + "/";
+}
+
 // get file parts
 const watchedFileArray = watchedFilePath.split(".");
 const fileExtension = watchedFileArray[watchedFileArray.length - 1];
 const filePrefix = watchedFilePath.replace("." + fileExtension, "");
 console.log(`Running on "${watchedFilePath}"\nPrefix: ${filePrefix}\nExtension: ${fileExtension}\n`);
 // now go through the folder and determine the highest number
-const folder = fs.readdirSync("./");
+const folder = fs.readdirSync(folderPath);
 let counter = 0;
 folder.forEach(file => {
   if(file.startsWith(filePrefix)){
@@ -34,10 +47,12 @@ chokidar.watch(`${folderPath}*`).on('all', (event, path) => {
         fs.renameSync(path,`${filePrefix}${zeropad(++counter)}.${fileExtension}`);
         break;
       case "change":
+        // TODO add option to "react & copy" instead of "move on create"
         console.log(`Changed watched file: ${path}`);
         break;
       default:
-        console.log(`Unhandled event: ${event}`);
+        // ignore unlink for now
+        // console.log(`Unhandled event: ${event}`);
         break;
     }
   }
